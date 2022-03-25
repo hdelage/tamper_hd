@@ -5,8 +5,8 @@
 // @version      0.1
 // @description  Allow fast edit of project names
 // @author       Hugo Delage
-// @updateURL    https://github.com/mygithubaccount/test/raw/master/test.user.js
-// @downloadURL  https://github.com/mygithubaccount/test/raw/master/test.user.js
+// @updateURL    https://github.com/hdelage/tamper_hd/raw/main/plmTasks_append.user.js
+// @downloadURL  https://github.com/hdelage/tamper_hd/raw/main/plmTasks_append.user.js
 // @match        https://hut2019x.plm.marquez.ca:444/3dspace/common/*emxPortalDisplay.jsp?*
 // @icon         https://hut2019x.plm.marquez.ca:444/3dspace/favicon.ico
 // @run-at       document-idle
