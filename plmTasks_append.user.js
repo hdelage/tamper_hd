@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         plmTasks_append
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.3
 // @description  Allow fast edit of project names
 // @author       Hugo Delage
 // @updateURL    http://github.com/hdelage/tamper_hd/raw/main/plmTasks_append.user.js
@@ -13,6 +13,7 @@
 // ==/UserScript==
 
 /* globals jQuery, $, waitForKeyElements */
+//https://hut2019x.plm.marquez.ca:444/3dspace/common/emxTree.jsp?isPopup=true&mode=tree&objectId=22184.4057.22256.57396&DefaultCategory=PMCSchedule
 
 console.log('HD!!!-------------------- project fast edition init -------------------');
 
@@ -74,6 +75,66 @@ function watch_edit_button(callback) {
     };
 }
 
+
+function remove_pattern(){
+     console.log("Retrais du pattern")
+    //var tw = unsafeWindow.window[0];
+    var PMC = unsafeWindow.open("","PMCWBS");
+    var curdoc = PMC.document
+    unsafeWindow.queryTxt = curdoc.querySelector('#HDTaskText').value
+    var emxUICore = unsafeWindow.emxUICore;
+    var oXML = PMC.oXML // get xml data
+    var currentRow = null
+    var rowId = null
+    var aserror = false
+    //nsole.log(PMC)
+    var sel = curdoc.querySelector('#treeBodyTable').querySelectorAll('.mx_rowSelected')
+
+    for(let i in sel) {
+       //document.querySelector('#treeBodyTable').querySelectorAll('.mx_rowSelected')[0].querySelector("[id^=icon_] > a > img").src --> icon image
+       try {
+           if (sel[i].offsetParent === null) {sel = curdoc.querySelector('#treeBodyTable').querySelectorAll('.mx_rowSelected')}
+           remove_element_pattern(sel[i],curdoc, PMC)
+       } catch (e) {
+       console.log(e);
+       wait(1000);
+       remove_pattern;
+           //break;
+       }
+    }
+    wait(1000)
+    toggle_button()
+
+}
+
+function remove_element_pattern(elem,curdoc, PMC){
+    try{
+        var rowTD = elem.querySelector("td.mx_editable")
+        var curtitle = elem.querySelector('td[title]').textContent
+        if (elem.querySelector("[id^=icon_] > a > img").src === 'https://hut2019x.plm.marquez.ca:444/3dspace/common/images/iconSmallTask.png' && curtitle !== "" && curtitle.split("_").length > 1 ) {
+            //rename element
+            //activate element
+            var rowId = elem.getAttribute("id");
+
+            // currentRow = emxUICore.selectSingleNode(oXML, "/mxRoot/rows//r[@id = '" + rowId + "']"); // get all row info
+            PMC.getCell(elem.rowIndex,1);
+            //tw.getcell(x,1)
+            var input = curdoc.querySelector('div.formLayer > input');
+            input.value = curtitle.split("_").slice(0,-1).join("_");
+            wait(50);
+            //document.querySelector("#content").contentDocument.querySelector("#divPvChannel-1-1 > div.pv-channel-content[style=''] > iframe").contentDocument.querySelector('#treeBodyTable').querySelectorAll('.mx_rowSelected > td.mx_editable')[2].click()
+            PMC.updateText(rowTD,input,rowId);
+
+
+    };
+   } catch (e) {
+      console.log(e);
+   }
+}
+
+
+
+
 function apply_pattern(){
     console.log("Application du pattern")
 //document.querySelector('#treeBodyTable').querySelectorAll('.mx_rowSelected') --> all selected elements
@@ -82,7 +143,9 @@ function apply_pattern(){
     //var tw = unsafeWindow.window[0];
     var PMC = unsafeWindow.open("","PMCWBS");
     var curdoc = PMC.document
-    var hd_txt = curdoc.querySelector('#HDTaskText').value;
+    if (curdoc.querySelector('#HDTaskText') !== undefined) {
+        unsafeWindow.queryTxt = curdoc.querySelector('#HDTaskText').value }
+    console.log(curdoc.querySelector('#HDTaskText') )
     var emxUICore = unsafeWindow.emxUICore;
     var oXML = PMC.oXML // get xml data
     var currentRow = null
@@ -95,22 +158,17 @@ function apply_pattern(){
     for(let i in sel) {
        //document.querySelector('#treeBodyTable').querySelectorAll('.mx_rowSelected')[0].querySelector("[id^=icon_] > a > img").src --> icon image
        try {
-           modifyElem(sel[i],hd_txt,curdoc, PMC)
+           if (sel[i].offsetParent === null) {sel = curdoc.querySelector('#treeBodyTable').querySelectorAll('.mx_rowSelected')}
+           modifyElem(sel[i],unsafeWindow.queryTxt,curdoc, PMC)
        } catch (e) {
        console.log(e);
-       wait(100)
-       break;}
-    }
-    if (aserror) {
-       sel = curdoc.querySelector('#treeBodyTable').querySelectorAll('.mx_rowSelected')
-       for(let i in sel) {
-           try {
-               modifyElem(sel[i],hd_txt,curdoc, PMC)
-           } catch (e) {
-               console.log(e);
+       wait(10)
+       apply_pattern()
+       //break;
        }
     }
-    }
+    toggle_button()
+
 }
 
 function modifyElem(elem,hd_txt,curdoc, PMC){
@@ -133,35 +191,6 @@ function modifyElem(elem,hd_txt,curdoc, PMC){
 }
 
 
-//function inputText(txt,row){
-    //todelete
-    // call emxUIFreezePane.js --> getCell(arguments) --> (1) -->arguments[0] = pointerEvent = document.body.dispatchEvent(event) trouver l'event?
-    // si on utilise plusieurs elements, il semble y avoir de quoi==> targetNode = tblBody.rows(arg0).cells(args(1))
-    //
-    // set current cell = ref --> emxEditableTable.getCurrentCell
-    //var colName = colMap.getColumnByIndex(currentColumnPosition-1).getAttribute("name");
-    //getTotalCellInfo(currentRow,colName);
-
-    //tcell(row,1)
-
-  //  var name = "formfield" + new Date().getTime();
-   // var floatingDiv = document.createElement("div");
-   // floatingDiv.className = "formLayer";
-  //  document.forms[0].appendChild(floatingDiv);
-   //ocument.forms[0].elements[name] = formfield;
-
- //   var inp = document.createElement("input")
- //   const attributes = {
-   //     id: 'processing',
-   //     type: 'text',
-   //     value: txt,
-
-        //onclick: 'apply_pattern()', ---> error not defined use event listener
-    //    name: "formfield1648230196327"
-  //      };
-    //    setAttributes(inp,attributes)
- //   return inp}
-
 
 function toggle_button(){
     var curdoc = document.querySelector("#divPvChannel-1-1 > div.pv-channel-content[style=''] > iframe").contentDocument
@@ -179,7 +208,7 @@ function toggle_button(){
         massupdate_bar.appendChild(sep_td);
 
 
-        // AJOUT BOUTTON
+        // AJOUT BOUTTON pattern
         var hdButtontd = document.createElement("td");
         var hdButtonhtml = document.createElement('input'); //'<input id="HDTaskButton" type="button" value="Ajout _pattern" onclick="apply_pattern()" class="mx_btn-apply" title="">')
         const attributes = {
@@ -199,19 +228,46 @@ function toggle_button(){
         // ajout du input TXT
         var intd = document.createElement("td")
         var inp = document.createElement("input")
-        // get last element after _ in title
-        var _title = curdoc.querySelector(".root-node.even > .mx_editable > div > table > tbody > tr > td[title] > a").text.split("_").slice(-1)[0];
+        // get last element after _ in title if not already modified
+        if (unsafeWindow.queryTxt == undefined) {
+            unsafeWindow.queryTxt = curdoc.querySelector(".root-node.even > .mx_editable > div > table > tbody > tr > td[title] > a").text.split("_").slice(-1)[0];
+        }
         //document.querySelector(".root-node.even > .mx_editable > div > table > tbody > tr > td[title] > a").text.split("_").slice(-1)[0];
         inp.id = "HDTaskText"
-        inp.value = _title
+        inp.value = unsafeWindow.queryTxt
 
         intd.appendChild(inp);
         massupdate_bar.appendChild(intd);
+
+        // AJOUT BOUTTON remove pattern
+        var hdButtontd2 = document.createElement("td");
+        var hdButtonhtml2 = document.createElement('input'); //'<input id="HDTaskButton" type="button" value="Ajout _pattern" onclick="apply_pattern()" class="mx_btn-apply" title="">')
+        const attributes2 = {
+            id: 'HDTaskButtonRemove',
+            type: 'button',
+            value: 'Remove',
+            //onclick: 'apply_pattern()', ---> error not defined use event listener
+            title: "",
+            class: 'mx_btn-apply',
+        };
+        setAttributes(hdButtonhtml2,attributes2)
+        hdButtonhtml2.addEventListener ("click", remove_pattern , false);
+
+        hdButtontd2.appendChild(hdButtonhtml2);
+        massupdate_bar.appendChild(hdButtontd2);
+
 
         //$("#HDTaskButton").click (apply_pattern); //jquery event listerer on click
         console.log(massupdate_bar)
         console.log('--------------------ajout du boutton -------------------');
 
+    } else if (hdButton.offsetParent === null) {
+        massupdate_bar.appendChild(hdButtontd);
+        massupdate_bar.appendChild(intd);
+        massupdate_bar.appendChild(hdButtontd2);
+        console.log('--------------------ajout du boutton caché -------------------');
+    } else {
+        console.log('--------------------bouton présent -------------------');
     }
 
 }
@@ -230,6 +286,7 @@ $(document).ready(function() { //When document has loaded
                     console.log('--------------------edit button activated -------------------');
                     setTimeout(function() {
                         // active désactive le boutton selons le cas
+
                         toggle_button()
 
                      }, 200)
@@ -242,28 +299,3 @@ $(document).ready(function() { //When document has loaded
     }, 2000); //1.5 seconds will elapse and Code will execute.
 
 });
-
-
-
-//quand on entre en edit mode, le style de l'item divMassUpdate passe de display: none; --> display: block;
-
-
-// lorsque clic dans une case, il appèle emxUIFreezePane.js ===> dans les eaux de 4672 ---> prend le field
-    //function getCell()
-    //getField(targetNode, inputType, objColumn, value, rowId);
-
-
-
-//document.querySelector("#\\30 \\,0\\,0 > td.mx_editable.mx_edited").click() --> click on task
-//document.querySelector("body > form:nth-child(5) > div.formLayer > input").value="test" --> set value of the task
-
-// var context = document.querySelector("#content").querySelector("iframe")contentDocument
-
-// var portal = document.querySelector(".structure-content[style='display: block;'] > iframe").contentDocument.querySelector("iframe").contentDocument
-// var portal = document.querySelectorAll('iframe[src^=".."]')[0].contentDocument.querySelector("iframe").contentDocument
-// var curdoc = portal.querySelector("#div.PvChannel-1-1 > div.pv-channel-content[style=''] > iframe").contentDocument
-// var curdoc = document.querySelectorAll('iframe[src^=".."]')[0].contentDocument
-// var sel = curdoc.querySelector('#treeBodyTable').querySelectorAll('.mx_rowSelected')
-//apeendParametersInSubmitFormeditableTable
-// function updateText(objElem,obj, rowid) 6493 dams emxUIFreezepane ---> objElem = sel[x] (td?)  , obj = <input type="text" value="PJ_PROJET_BRAINSTORM" name="formfield1648230196327">, Rowid = "0,0,0"
-// var theValidator = theColumn.getSetting("Validate") --> a tester
