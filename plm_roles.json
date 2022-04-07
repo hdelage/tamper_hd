@@ -1,0 +1,29 @@
+{ "roles":
+
+{
+   "M&P":["mat1for"],
+   "CAD":["hug1del","ale1urq","ran1mac","pie1ger"],
+   "CHARGÉ DE PROJETS":["A0H95322","jea1rat","abd1fak","zoz1olg"],
+   "METHODE":["fra1tre","mat1leg","fre1pot","nan1fre"],
+   "CAM":["ala1gau"],
+   "PRODUCTION":["ale1ber"]
+}
+"names":
+{"mat1for":"Mathieu F.",
+"hug1del":"Hugo D.",
+"ale1urq":"Alex U.",
+"ran1mac":"Randy",
+"pie1ger":"Pierre G.",
+"A0H95322":"Saleem S.",
+"jea1rat":"J-S. Ratelle",
+"abd1fak":"Abder F.",
+"zoz1olg":"Zozane O.",
+"fra1tre":"Francois T.",
+"mat1leg":"Mathias L.",
+"fre1pot":"Fred P.",
+"nan1fre":"Nancy F.",
+"ala1gau":"Alain G.",
+"ale1ber":"Alex B."
+}
+
+}
