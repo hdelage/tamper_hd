@@ -2,11 +2,11 @@
 // ==UserScript==
 // @name         plmca_assign
 // @namespace    http://tampermonkey.net/
-// @version      0.3
+// @version      0.1
 // @description  Allow fast edit of project names
 // @author       Hugo Delage
-// @updateURL    http://github.com/hdelage/tamper_hd/raw/main/plmca_assign.js
-// @downloadURL  http://github.com/hdelage/tamper_hd/raw/main/plmca_assign.js
+// @updateURL    http://github.com/hdelage/tamper_hd/raw/main/plmca.js
+// @downloadURL  http://github.com/hdelage/tamper_hd/raw/main/plmca.js
 // @match        https://*/3dspace/common/emxTableBody.jsp?*portalCmdName=AEFLifecycleApprovals*
 // @icon         https://hut2019x.plm.marquez.ca:444/3dspace/favicon.ico
 // @run-at       document-idle
@@ -33,19 +33,17 @@ const users={"mat1for":"Mathieu F.",
 "fre1pot":"Fred P.",
 "nan1fre":"Nancy F.",
 "ala1gau":"Alain G.",
-"ale1ber":"Alex B.",
-"jea1leg":"J-F.",
-"zie1gar":"Zied G."
+"ale1ber":"Alex B."
 }
 
 
 const roles = {
    "M&P":["mat1for"],
-   "CAD":["hug1del","ale1urq","pie1ger"],
-   "CHARGÉ DE PROJETS":["A0H95322","jea1rat","abd1fak","zoz1olg", "jea1leg"],
+   "CAD":["hug1del","ale1urq","ran1mac","pie1ger"],
+   "CHARGÉ DE PROJETS":["A0H95322","jea1rat","abd1fak","zoz1olg"],
    "METHODE":["fra1tre","mat1leg","fre1pot","nan1fre"],
    "CAM":["ala1gau"],
-   "PRODUCTION":["ale1ber","zie1gar"]
+   "PRODUCTION":["ale1ber"]
 }
 
 var wait = (ms) => {
@@ -80,33 +78,31 @@ function url_get_assign(evt){
 function add_button(doc,otable,user, taskInfo,ITname,comment){
 
     // création des elements
-    var oBt = otable.querySelector('#AssignTo' + user)
-    if (oBt === undefined ) {
-        var oTr = doc.createElement("tr");
-        var oTd = doc.createElement("td");
-        oBt = document.createElement('input');
+    var oTr = doc.createElement("tr");
+    var oTd = doc.createElement("td");
+    var oBt = document.createElement('input');
 
-        const attributes = {
-            id: 'AssignTo' + user ,
-            type: 'button',
-            value: users[user],
-            title: "",
-            class: 'mx_btn-apply',
-        };
-        setAttributes(oBt,attributes)
+    const attributes = {
+        id: 'AssignTo' + user ,
+        type: 'button',
+        value: users[user],
+        title: "",
+        class: 'mx_btn-apply',
+    };
+    setAttributes(oBt,attributes)
 
-        //set click events and its parameters
-        oBt.addEventListener ("click", url_get_assign , false);
-        oBt.taskInfo = taskInfo
-        oBt.notificationComment = comment
-        oBt.txtAssignee = user
-        oBt.ITName = ITname
+    //set click events and its parameters
+    oBt.addEventListener ("click", url_get_assign , false);
+    oBt.taskInfo = taskInfo
+    oBt.notificationComment = comment
+    oBt.txtAssignee = user
+    oBt.ITName = ITname
 
-        // finalise append to html
-        oTd.appendChild(oBt);
-        oTr.appendChild(oTd);
-        otable.appendChild(oTr);
-}}
+    // finalise append to html
+    oTd.appendChild(oBt);
+    oTr.appendChild(oTd);
+    otable.appendChild(oTr);
+}
 
 
 function assing_user_buttons(){
@@ -176,38 +172,23 @@ $(document).ready(function() { //When document has loaded
 
 /*
 https://www.w3schools.com/js/tryit.asp?filename=tryjs_editor
-
 pour tester le form
-
 <!DOCTYPE html>
 <html>
 <body>
-
 <button id="viewform" >open form</button>
-
-
-
 <script>
 function create_form(){
     var popup = open("", "Popup", "width=300,height=200");
-
     var
-
-
     var aOk = popup.document.createElement("a");
     aOk.innerHTML = "Click here";
-
     popup.document.body.appendChild(txtOk);
     popup.document.body.appendChild(aOk);
 }
-
 var button = document.getElementById("viewform");
 button.addEventListener ("click", create_form , false);
-
 </script>
-
-
-
 </body>
 </html>
 */
@@ -220,10 +201,8 @@ function create_form(group){
     var txtOk = popup.document.createElement("TEXTAREA");
     var aOk = popup.document.createElement("a");
     aOk.innerHTML = "Click here";
-
     popup.document.body.appendChild(txtOk);
     popup.document.body.appendChild(aOk);
-
     // to return value to precedent code: https://stackoverflow.com/questions/13301908/open-new-popup-window-and-return-value
     //window.opener['dataitem'] = <your return value>;
     //var somevariable = window['dataitem'];

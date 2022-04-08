@@ -2,11 +2,11 @@
 // ==UserScript==
 // @name         plmca_assign
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.3
 // @description  Allow fast edit of project names
 // @author       Hugo Delage
-// @updateURL    http://github.com/hdelage/tamper_hd/raw/main/plmca.js
-// @downloadURL  http://github.com/hdelage/tamper_hd/raw/main/plmca.js
+// @updateURL    http://github.com/hdelage/tamper_hd/raw/main/plmca_assign.js
+// @downloadURL  http://github.com/hdelage/tamper_hd/raw/main/plmca_assign.js
 // @match        https://*/3dspace/common/emxTableBody.jsp?*portalCmdName=AEFLifecycleApprovals*
 // @icon         https://hut2019x.plm.marquez.ca:444/3dspace/favicon.ico
 // @run-at       document-idle
@@ -33,17 +33,19 @@ const users={"mat1for":"Mathieu F.",
 "fre1pot":"Fred P.",
 "nan1fre":"Nancy F.",
 "ala1gau":"Alain G.",
-"ale1ber":"Alex B."
+"ale1ber":"Alex B.",
+"jea1leg":"J-F.",
+"zie1gar":"Zied G."
 }
 
 
 const roles = {
    "M&P":["mat1for"],
-   "CAD":["hug1del","ale1urq","ran1mac","pie1ger"],
-   "CHARGÉ DE PROJETS":["A0H95322","jea1rat","abd1fak","zoz1olg"],
+   "CAD":["hug1del","ale1urq","pie1ger"],
+   "CHARGÉ DE PROJETS":["A0H95322","jea1rat","abd1fak","zoz1olg", "jea1leg"],
    "METHODE":["fra1tre","mat1leg","fre1pot","nan1fre"],
    "CAM":["ala1gau"],
-   "PRODUCTION":["ale1ber"]
+   "PRODUCTION":["ale1ber","zie1gar"]
 }
 
 var wait = (ms) => {
@@ -78,31 +80,33 @@ function url_get_assign(evt){
 function add_button(doc,otable,user, taskInfo,ITname,comment){
 
     // création des elements
-    var oTr = doc.createElement("tr");
-    var oTd = doc.createElement("td");
-    var oBt = document.createElement('input');
+    var oBt = otable.querySelector('#AssignTo' + user)
+    if (oBt === undefined ) {
+        var oTr = doc.createElement("tr");
+        var oTd = doc.createElement("td");
+        oBt = document.createElement('input');
 
-    const attributes = {
-        id: 'AssignTo' + user ,
-        type: 'button',
-        value: users[user],
-        title: "",
-        class: 'mx_btn-apply',
-    };
-    setAttributes(oBt,attributes)
+        const attributes = {
+            id: 'AssignTo' + user ,
+            type: 'button',
+            value: users[user],
+            title: "",
+            class: 'mx_btn-apply',
+        };
+        setAttributes(oBt,attributes)
 
-    //set click events and its parameters
-    oBt.addEventListener ("click", url_get_assign , false);
-    oBt.taskInfo = taskInfo
-    oBt.notificationComment = comment
-    oBt.txtAssignee = user
-    oBt.ITName = ITname
+        //set click events and its parameters
+        oBt.addEventListener ("click", url_get_assign , false);
+        oBt.taskInfo = taskInfo
+        oBt.notificationComment = comment
+        oBt.txtAssignee = user
+        oBt.ITName = ITname
 
-    // finalise append to html
-    oTd.appendChild(oBt);
-    oTr.appendChild(oTd);
-    otable.appendChild(oTr);
-}
+        // finalise append to html
+        oTd.appendChild(oBt);
+        oTr.appendChild(oTd);
+        otable.appendChild(oTr);
+}}
 
 
 function assing_user_buttons(){
