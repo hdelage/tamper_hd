@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         plmca_assign
 // @namespace    http://tampermonkey.net/
-// @version      0.4
+// @version      0.5
 // @description  Allow fast edit of project names
 // @author       Hugo Delage
 // @updateURL    http://github.com/hdelage/tamper_hd/raw/main/plmca_assign.js
@@ -131,10 +131,10 @@ function assing_user_buttons(){
         for (let i = 0; i < elems.length-2; i++) {
 
 
-            tskTitle = elems[0].parentElement.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling
+            tskTitle = elems[i].parentElement.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling
             if (tskTitle !== undefined) {
 
-                taskInfo = elems[0].value
+                taskInfo = elems[i].value
                 ITname = tskTitle.previousElementSibling.innerText
                 type = tskTitle.textContent.trim()
                 if (roles[type] !== undefined) {
