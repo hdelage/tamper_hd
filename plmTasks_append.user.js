@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         plmca_assign
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.3
 // @description  Allow fast edit of project names
 // @author       Hugo Delage
 // @updateURL    http://github.com/hdelage/tamper_hd/raw/main/plmca_assign.js
