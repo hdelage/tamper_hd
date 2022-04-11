@@ -2,13 +2,13 @@
 // ==UserScript==
 // @name         plmUrl
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  Copy current url to clipboard instread of email
 // @author       Hugo Delage
 // @updateURL    http://github.com/hdelage/tamper_hd/raw/main/plmUrl.js
 // @downloadURL  http://github.com/hdelage/tamper_hd/raw/main/plmUrl.js
 // @match        https://hut2019x.plm.marquez.ca:444/3dspace/*
-// @icon         https://hut2019x.plm.marquez.ca:444/3dspace/favicon.ico
+// @icon         https://eu1-ds-iam.3dexperience.3ds.com/3DPassport/resources-220127130842/img/favicon/favicon-32x32.png
 // @run-at       document-idle
 // ==/UserScript==
 
