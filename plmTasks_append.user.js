@@ -2,13 +2,13 @@
 // ==UserScript==
 // @name         plmTasks_append
 // @namespace    http://tampermonkey.net/
-// @version      0.3
+// @version      0.4
 // @description  Allow fast edit of project names
 // @author       Hugo Delage
 // @updateURL    http://github.com/hdelage/tamper_hd/raw/main/plmTasks_append.user.js
 // @downloadURL  http://github.com/hdelage/tamper_hd/raw/main/plmTasks_append.user.js
 // @match        https://hut2019x.plm.marquez.ca:444/3dspace/common/*emxPortalDisplay.jsp?*
-// @icon         https://hut2019x.plm.marquez.ca:444/3dspace/favicon.ico
+// @icon         https://eu1-ds-iam.3dexperience.3ds.com/3DPassport/resources-220127130842/img/favicon/favicon-32x32.png
 // @run-at       document-idle
 // ==/UserScript==
 
