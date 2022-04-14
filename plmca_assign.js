@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         plmca_assign
 // @namespace    http://tampermonkey.net/
-// @version      0.6
+// @version      0.7
 // @description  Allow fast edit of project names
 // @author       Hugo Delage
 // @updateURL    http://github.com/hdelage/tamper_hd/raw/main/plmca_assign.js
@@ -44,6 +44,8 @@ const roles = {
    "CAD":["hug1del","ale1urq","pie1ger"],
    "CHARGÉ DE PROJETS":["A0H95322","jea1rat","abd1fak","zoz1olg", "jea1leg"],
    "METHODE":["fra1tre","mat1leg","fre1pot","nan1fre"],
+   "METHODES":["fra1tre","mat1leg","fre1pot","nan1fre"],
+   "MÉTHODES":["fra1tre","mat1leg","fre1pot","nan1fre"],
    "CAM":["ala1gau"],
    "PRODUCTION":["ale1ber","zie1gar"]
 }
@@ -81,7 +83,7 @@ function add_button(doc,otable,user, taskInfo,ITname,comment){
 
     // création des elements
     var oBt = otable.querySelector('#AssignTo' + user)
-    if (oBt === undefined ) {
+    if (oBt === undefined || oBt === null) {
         var oTr = doc.createElement("tr");
         var oTd = doc.createElement("td");
         oBt = document.createElement('input');
@@ -167,64 +169,7 @@ function addClassNameListener(elemId, odoc,callback) {
 
 
 // after launch and everything is loaded
-$(document).ready(function() { //When document has loaded
-    console.log('--------------------ca fast assign loaded -------------------');
     setTimeout(function() {
        assing_user_buttons()
-   }, 2000);
-});
-
-/*
-https://www.w3schools.com/js/tryit.asp?filename=tryjs_editor
-
-pour tester le form
-
-<!DOCTYPE html>
-<html>
-<body>
-
-<button id="viewform" >open form</button>
-
-
-
-<script>
-function create_form(){
-    var popup = open("", "Popup", "width=300,height=200");
-
-    var
-
-
-    var aOk = popup.document.createElement("a");
-    aOk.innerHTML = "Click here";
-
-    popup.document.body.appendChild(txtOk);
-    popup.document.body.appendChild(aOk);
-}
-
-var button = document.getElementById("viewform");
-button.addEventListener ("click", create_form , false);
-
-</script>
-
-
-
-</body>
-</html>
-*/
-
-/*
-was a test for added form, but will add button in box instead
-function create_form(group){
-    var oppener = document
-    var popup = open("", "Popup", "width=300,height=200");
-    var txtOk = popup.document.createElement("TEXTAREA");
-    var aOk = popup.document.createElement("a");
-    aOk.innerHTML = "Click here";
-
-    popup.document.body.appendChild(txtOk);
-    popup.document.body.appendChild(aOk);
-
-    // to return value to precedent code: https://stackoverflow.com/questions/13301908/open-new-popup-window-and-return-value
-    //window.opener['dataitem'] = <your return value>;
-    //var somevariable = window['dataitem'];
-}*/
+      console.log('--------------------ca fast assign loaded -------------------');
+   }, 1000);
