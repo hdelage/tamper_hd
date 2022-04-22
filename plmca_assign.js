@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         plmca_assign
 // @namespace    http://tampermonkey.net/
-// @version      0.7
+// @version      0.8
 // @description  Allow fast edit of project names
 // @author       Hugo Delage
 // @updateURL    http://github.com/hdelage/tamper_hd/raw/main/plmca_assign.js
@@ -43,6 +43,7 @@ const roles = {
    "M&P":["mat1for"],
    "CAD":["hug1del","ale1urq","pie1ger"],
    "CHARGÉ DE PROJETS":["A0H95322","jea1rat","abd1fak","zoz1olg", "jea1leg"],
+   "CHARGE DE PROJETS":["A0H95322","jea1rat","abd1fak","zoz1olg", "jea1leg"],
    "METHODE":["fra1tre","mat1leg","fre1pot","nan1fre"],
    "METHODES":["fra1tre","mat1leg","fre1pot","nan1fre"],
    "MÉTHODES":["fra1tre","mat1leg","fre1pot","nan1fre"],
