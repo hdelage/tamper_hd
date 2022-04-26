@@ -272,30 +272,28 @@ function toggle_button(){
 
 }
 
-$(document).ready(function() { //When document has loaded
-    console.log('--------------------project fast edition loaded -------------------');
-    setTimeout(function() {
-        console.log('--------------------spinner start -------------------');
 
-       addClassNameListener('imgProgressDivChannel',function(){
-            console.log('--------------------spinner end -------------------');
-            setTimeout(function() {
-                //var tabs= document.getElementById('pvChannelTabs')
-                //console.log(tabs)
-                watch_edit_button( function(){
-                    console.log('--------------------edit button activated -------------------');
-                    setTimeout(function() {
-                        // active désactive le boutton selons le cas
+console.log('--------------------project fast edition loaded -------------------');
+setTimeout(function() {
+	console.log('--------------------spinner start -------------------');
 
-                        toggle_button()
+   addClassNameListener('imgProgressDivChannel',function(){
+		console.log('--------------------spinner end -------------------');
+		setTimeout(function() {
+			//var tabs= document.getElementById('pvChannelTabs')
+			//console.log(tabs)
+			watch_edit_button( function(){
+				console.log('--------------------edit button activated -------------------');
+				setTimeout(function() {
+					// active désactive le boutton selons le cas
 
-                     }, 200)
-                });
-                //unsafeWindow.toggleRowGrouping('L0Cancelled');
-                //unsafeWindow.toggleRowGrouping('L0Complete');
+					toggle_button()
 
-            }, 2000)
-        });
-    }, 2000); //1.5 seconds will elapse and Code will execute.
+				 }, 200)
+			});
+			//unsafeWindow.toggleRowGrouping('L0Cancelled');
+			//unsafeWindow.toggleRowGrouping('L0Complete');
 
-});
+		}, 2000)
+	});
+}, 2000); //1.5 seconds will elapse and Code will execute.
