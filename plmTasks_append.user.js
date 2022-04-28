@@ -2,18 +2,18 @@
 // ==UserScript==
 // @name         plmTasks_append
 // @namespace    http://tampermonkey.net/
-// @version      0.5
+// @version      0.6
 // @description  Allow fast edit of project names
 // @author       Hugo Delage
 // @updateURL    http://github.com/hdelage/tamper_hd/raw/main/plmTasks_append.user.js
 // @downloadURL  http://github.com/hdelage/tamper_hd/raw/main/plmTasks_append.user.js
-// @match        https://hut2019x.plm.marquez.ca:444/3dspace/common/*emxPortalDisplay.jsp?*
+// @match        https://*/3dspace/common/emxPortalDisplay.jsp?*
 // @icon         https://eu1-ds-iam.3dexperience.3ds.com/3DPassport/resources-220127130842/img/favicon/favicon-32x32.png
-// @run-at       document-idle
 // ==/UserScript==
 
 /* globals jQuery, $, waitForKeyElements */
-//https://hut2019x.plm.marquez.ca:444/3dspace/common/emxTree.jsp?isPopup=true&mode=tree&objectId=22184.4057.22256.57396&DefaultCategory=PMCSchedule
+
+
 
 console.log('HD!!!-------------------- project fast edition init -------------------');
 
@@ -31,50 +31,21 @@ function setAttributes(element, attributes) {
   });
 }
 
-
-function check_chanel() {
-  var elem = document.querySelector("#pvChannelTabs > table > tbody > tr > td.tab-active");
-  return elem.html
+function qsel_frame(parent,elemId) {
+  var elem = parent.querySelector(elemId);
+  if (elem === null) {return null} else { return elem.contentDocument };
 }
 
-function addClassNameListener(elemId, callback) {
-    var elem = document.getElementById(elemId);
-    var lastClassName = elem.style;
+function addSubElementListener(parent,elemId,check,callback,timeStep = 100) {
+    var lastelem = check(parent,elemId);
     window.setInterval( function() {
-       var className = elem.className;
-        if (className !== lastClassName) {
-            callback();
-            lastClassName = className;
-        }
-    },10);
-}
-
-
-
-
-function chanelTabListener(elemId, callback) {
-    var lastelem = check_chanel();
-    window.setInterval( function() {
-       var curelem = check_chanel();
+       var curelem = check(parent,elemId);
         if (curelem !== lastelem) {
             callback();
             lastelem = curelem;
         }
-    },1000);
+    },timeStep);
 }
-
-function watch_edit_button(callback) {
-    var elem = document.querySelector("#divPvChannel-1-1 > div.pv-channel-content[style=''] > iframe").contentDocument.querySelector('#editButttonId');
-    if (elem !== null) {
-    window.setInterval( function() {
-        if (elem.className === 'icon-button button-active') {
-            callback();
-            wait(100);
-        }
-    },10);
-    };
-}
-
 
 function remove_pattern(){
      console.log("Retrais du pattern")
@@ -103,7 +74,7 @@ function remove_pattern(){
        }
     }
     wait(1000)
-    toggle_button()
+    add_bar()
 
 }
 
@@ -132,9 +103,6 @@ function remove_element_pattern(elem,curdoc, PMC){
    }
 }
 
-
-
-
 function apply_pattern(){
     console.log("Application du pattern")
 //document.querySelector('#treeBodyTable').querySelectorAll('.mx_rowSelected') --> all selected elements
@@ -145,7 +113,6 @@ function apply_pattern(){
     var curdoc = PMC.document
     if (curdoc.querySelector('#HDTaskText') !== undefined) {
         unsafeWindow.queryTxt = curdoc.querySelector('#HDTaskText').value }
-    console.log(curdoc.querySelector('#HDTaskText') )
     var emxUICore = unsafeWindow.emxUICore;
     var oXML = PMC.oXML // get xml data
     var currentRow = null
@@ -154,21 +121,19 @@ function apply_pattern(){
 
     //nsole.log(PMC)
     var sel = curdoc.querySelector('#treeBodyTable').querySelectorAll('.mx_rowSelected')
-
-    for(let i in sel) {
-       //document.querySelector('#treeBodyTable').querySelectorAll('.mx_rowSelected')[0].querySelector("[id^=icon_] > a > img").src --> icon image
-       try {
-           if (sel[i].offsetParent === null) {sel = curdoc.querySelector('#treeBodyTable').querySelectorAll('.mx_rowSelected')}
-           modifyElem(sel[i],unsafeWindow.queryTxt,curdoc, PMC)
-       } catch (e) {
-       console.log(e);
-       wait(10)
-       apply_pattern()
-       //break;
-       }
+    if (sel.length > 0) {
+        for(let i in sel) {
+            //document.querySelector('#treeBodyTable').querySelectorAll('.mx_rowSelected')[0].querySelector("[id^=icon_] > a > img").src --> icon image
+            try {
+                if (sel[i].offsetParent === null) {sel = curdoc.querySelector('#treeBodyTable').querySelectorAll('.mx_rowSelected')}
+                modifyElem(sel[i],unsafeWindow.queryTxt,curdoc, PMC)
+            } catch (e) {
+                console.log(e);
+                wait(10)
+                apply_pattern()
+            }
+        }
     }
-    toggle_button()
-
 }
 
 function modifyElem(elem,hd_txt,curdoc, PMC){
@@ -190,16 +155,17 @@ function modifyElem(elem,hd_txt,curdoc, PMC){
     };
 }
 
+function update_queryTxt(e){
+    unsafeWindow.queryTxt = e.target.value;
+}
 
-
-function toggle_button(){
-    var curdoc = document.querySelector("#divPvChannel-1-1 > div.pv-channel-content[style=''] > iframe").contentDocument
+function add_bar(curdoc){
+    console.log('HD!!!-----Ajout de la barre fast edit-----')
+    var massupdate_selector = '#divMassUpdate[style="display: block;"] > div > div:nth-child(1) > table > tbody > tr'
+    var massupdate_bar = curdoc.querySelector(massupdate_selector)
     var hdButton = curdoc.querySelector('#HDTaskButton');
-    var massupdate_bar = curdoc.querySelector("#divMassUpdate > div > div:nth-child(1) > table > tbody > tr")
-
-    if (hdButton === null && massupdate_bar !== null) {
-        // add button,  removed with default plm js?
-
+    var test = toolbar_ensure_element(curdoc,'#divMassUpdate')
+    if (hdButton === null && test === null) {
         // AJOUT SÉPARATEUR
         var sep_td = document.createElement("td");
         var set_div = document.createElement("div");
@@ -207,9 +173,9 @@ function toggle_button(){
         sep_td.appendChild(set_div);
         massupdate_bar.appendChild(sep_td);
 
-
         // AJOUT BOUTTON pattern
         var hdButtontd = document.createElement("td");
+        hdButtontd.id='HDButtontd'
         var hdButtonhtml = document.createElement('input'); //'<input id="HDTaskButton" type="button" value="Ajout _pattern" onclick="apply_pattern()" class="mx_btn-apply" title="">')
         const attributes = {
             id: 'HDTaskButton',
@@ -227,12 +193,17 @@ function toggle_button(){
 
         // ajout du input TXT
         var intd = document.createElement("td")
+        intd.id ='HDTaskButton_intd'
         var inp = document.createElement("input")
         // get last element after _ in title if not already modified
-        if (unsafeWindow.queryTxt == undefined) {
-            unsafeWindow.queryTxt = curdoc.querySelector(".root-node.even > .mx_editable > div > table > tbody > tr > td[title] > a").text.split("_").slice(-1)[0];
+        if (unsafeWindow.queryTxt === undefined) {
+            var heading = curdoc.querySelector(".root-node.even > .mx_editable > div > table > tbody > tr > td[title] > a")
+            if (heading !== null && heading.text.split('_').length > 1){
+                unsafeWindow.queryTxt = heading.text.split('_').slice(-1)[0]; // a checker
+            }
         }
-        //document.querySelector(".root-node.even > .mx_editable > div > table > tbody > tr > td[title] > a").text.split("_").slice(-1)[0];
+        inp.addEventListener ("input", update_queryTxt);
+
         inp.id = "HDTaskText"
         inp.value = unsafeWindow.queryTxt
 
@@ -241,6 +212,8 @@ function toggle_button(){
 
         // AJOUT BOUTTON remove pattern
         var hdButtontd2 = document.createElement("td");
+        hdButtontd2.id ='hdButtontd2'
+
         var hdButtonhtml2 = document.createElement('input'); //'<input id="HDTaskButton" type="button" value="Ajout _pattern" onclick="apply_pattern()" class="mx_btn-apply" title="">')
         const attributes2 = {
             id: 'HDTaskButtonRemove',
@@ -250,50 +223,43 @@ function toggle_button(){
             title: "",
             class: 'mx_btn-apply',
         };
+
         setAttributes(hdButtonhtml2,attributes2)
         hdButtonhtml2.addEventListener ("click", remove_pattern , false);
 
         hdButtontd2.appendChild(hdButtonhtml2);
         massupdate_bar.appendChild(hdButtontd2);
-
-
-        //$("#HDTaskButton").click (apply_pattern); //jquery event listerer on click
-        console.log(massupdate_bar)
         console.log('--------------------ajout du boutton -------------------');
-
-    } else if (hdButton.offsetParent === null) {
-        massupdate_bar.appendChild(hdButtontd);
-        massupdate_bar.appendChild(intd);
-        massupdate_bar.appendChild(hdButtontd2);
-        console.log('--------------------ajout du boutton caché -------------------');
+    } else if (hdButton !== null && test === null) {
+        console.log('HD!!-----ajout du bouton existant au menu')
     } else {
-        console.log('--------------------bouton présent -------------------');
+        console.log('--------------------bouton déjà présent -------------------');
     }
+}
 
+function toolbar_ensure_element(parent,elemId){
+   var elem = parent.querySelector(elemId)
+   if (elem !== null) {
+       var mystyle = elem.style.display
+       if (mystyle !== "none") {
+           return elem.querySelector('#HDButtontd')
+       } else {return mystyle} ;
+   } else { return "none" }
 }
 
 
-console.log('--------------------project fast edition loaded -------------------');
 setTimeout(function() {
-	console.log('--------------------spinner start -------------------');
-
-   addClassNameListener('imgProgressDivChannel',function(){
-		console.log('--------------------spinner end -------------------');
-		setTimeout(function() {
-			//var tabs= document.getElementById('pvChannelTabs')
-			//console.log(tabs)
-			watch_edit_button( function(){
-				console.log('--------------------edit button activated -------------------');
-				setTimeout(function() {
-					// active désactive le boutton selons le cas
-
-					toggle_button()
-
-				 }, 200)
-			});
-			//unsafeWindow.toggleRowGrouping('L0Cancelled');
-			//unsafeWindow.toggleRowGrouping('L0Complete');
-
-		}, 2000)
-	});
-}, 2000); //1.5 seconds will elapse and Code will execute.
+	console.log('--------------------project fast edition loaded -------------------');
+    var iframe_selector = "#divPvChannel-1-1 > div.pv-channel-content[style=''] > iframe"
+    var MassupdateBar = '#divMassUpdate'
+    addSubElementListener(document,iframe_selector,qsel_frame,function() {
+       var iframe_elem = document.querySelector(iframe_selector)
+           if (iframe_elem !== null) {
+               var iframe_doc = document.querySelector(iframe_selector).contentDocument
+               console.log('Frame change')
+               addSubElementListener(iframe_doc,MassupdateBar,toolbar_ensure_element,function(){
+                   add_bar(iframe_doc);
+               },100)
+           }
+    });
+}, 500); //0.5 seconds will elapse and Code will execute.
