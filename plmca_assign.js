@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         plmca_assign
 // @namespace    http://tampermonkey.net/
-// @version      0.8
+// @version      0.9
 // @description  Allow fast edit of project names
 // @author       Hugo Delage
 // @updateURL    http://github.com/hdelage/tamper_hd/raw/main/plmca_assign.js
@@ -35,7 +35,8 @@ const users={"mat1for":"Mathieu F.",
 "ala1gau":"Alain G.",
 "ale1ber":"Alex B.",
 "jea1leg":"J-F.",
-"zie1gar":"Zied G."
+"zie1gar":"Zied G.",
+"A0H95400":"Mamadou E."
 }
 
 
@@ -44,9 +45,9 @@ const roles = {
    "CAD":["hug1del","ale1urq","pie1ger"],
    "CHARGÉ DE PROJETS":["A0H95322","jea1rat","abd1fak","zoz1olg", "jea1leg"],
    "CHARGE DE PROJETS":["A0H95322","jea1rat","abd1fak","zoz1olg", "jea1leg"],
-   "METHODE":["fra1tre","mat1leg","fre1pot","nan1fre"],
-   "METHODES":["fra1tre","mat1leg","fre1pot","nan1fre"],
-   "MÉTHODES":["fra1tre","mat1leg","fre1pot","nan1fre"],
+   "METHODE":["fra1tre","mat1leg","fre1pot","nan1fre","A0H95400"],
+   "METHODES":["fra1tre","mat1leg","fre1pot","nan1fre","A0H95400"],
+   "MÉTHODES":["fra1tre","mat1leg","fre1pot","nan1fre","A0H95400"],
    "CAM":["ala1gau"],
    "PRODUCTION":["ale1ber","zie1gar"]
 }
