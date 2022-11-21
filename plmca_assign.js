@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         plmca_assign
 // @namespace    http://tampermonkey.net/
-// @version      0.9
+// @version      0.10
 // @description  Allow fast edit of project names
 // @author       Hugo Delage
 // @updateURL    http://github.com/hdelage/tamper_hd/raw/main/plmca_assign.js
@@ -21,7 +21,7 @@ console.log('HD!!!-------------------- ca fast assign init -------------------')
 
 const users={"mat1for":"Mathieu F.",
 "hug1del":"Hugo D.",
-"ale1urq":"Alex U.",
+"A0h95459":"J-F. G.",
 "ran1mac":"Randy",
 "pie1ger":"Pierre G.",
 "A0H95322":"Saleem S.",
@@ -36,13 +36,15 @@ const users={"mat1for":"Mathieu F.",
 "ale1ber":"Alex B.",
 "jea1leg":"J-F.",
 "zie1gar":"Zied G.",
-"A0H95400":"Mamadou E."
+"A0H95400":"Mamadou E.",
+"A0H95406":"Zaynab G."
+
 }
 
 
 const roles = {
-   "M&P":["mat1for"],
-   "CAD":["hug1del","ale1urq","pie1ger"],
+   "M&P":["mat1for","A0H95406"],
+   "CAD":["hug1del","A0h95459","pie1ger"],
    "CHARGÉ DE PROJETS":["A0H95322","jea1rat","abd1fak","zoz1olg", "jea1leg"],
    "CHARGE DE PROJETS":["A0H95322","jea1rat","abd1fak","zoz1olg", "jea1leg"],
    "METHODE":["fra1tre","mat1leg","fre1pot","nan1fre","A0H95400"],
