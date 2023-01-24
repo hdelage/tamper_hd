@@ -4,8 +4,8 @@
 // @version      0.2
 // @description  Hide cancell and complete ca
 // @author       Hugo Delage
-// @updateURL    http://github.com/hdelage/tamper_hd/raw/main/plmCa_display.js
-// @downloadURL  http://github.com/hdelage/tamper_hd/raw/main/plmCa_display.js
+// @updateURL    http://amntrd170:3000/Global/plmTamper/raw/branch/main/plmCa_display.js
+// @downloadURL  http://amntrd170:3000/Global/plmTamper/raw/branch/main/plmCa_display.js
 // @match        https://hut2019x.plm.marquez.ca:444/3dspace/common/emxIndentedTable.jsp?SuiteDirectory=enterprisechangemgtapp&showPageHeader=true*
 // @icon         https://eu1-ds-iam.3dexperience.3ds.com/3DPassport/resources-220127130842/img/favicon/favicon-32x32.png
 // @run-at       document-idle

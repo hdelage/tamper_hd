@@ -5,8 +5,8 @@
 // @version      0.10
 // @description  Allow fast edit of project names
 // @author       Hugo Delage
-// @updateURL    http://github.com/hdelage/tamper_hd/raw/main/plmca_assign.js
-// @downloadURL  http://github.com/hdelage/tamper_hd/raw/main/plmca_assign.js
+// @updateURL    http://amntrd170:3000/Global/plmTamper/raw/branch/main/plmca_assign.js
+// @downloadURL  http://amntrd170:3000/Global/plmTamper/raw/branch/main/plmca_assign.js
 // @match        https://*/3dspace/common/emxTableBody.jsp?*portalCmdName=AEFLifecycleApprovals*
 // @icon         https://eu1-ds-iam.3dexperience.3ds.com/3DPassport/resources-220127130842/img/favicon/favicon-32x32.png
 // @run-at       document-idle
@@ -17,7 +17,7 @@
 
 console.log('HD!!!-------------------- ca fast assign init -------------------');
 
-//$.getJSON("http://github.com/hdelage/tamper_hd/raw/main/plm_roles.json", function(data) { var plm_roles = data; }); // return json file from network for easy modification of assign
+//$.getJSON("http://amntrd170:3000/Global/plmTamper/raw/branch/main/plm_roles.json", function(data) { var plm_roles = data; }); // return json file from network for easy modification of assign
 
 const users={"mat1for":"Mathieu F.",
 "hug1del":"Hugo D.",

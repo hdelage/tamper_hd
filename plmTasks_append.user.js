@@ -5,8 +5,8 @@
 // @version      0.6
 // @description  Allow fast edit of project names
 // @author       Hugo Delage
-// @updateURL    http://github.com/hdelage/tamper_hd/raw/main/plmTasks_append.user.js
-// @downloadURL  http://github.com/hdelage/tamper_hd/raw/main/plmTasks_append.user.js
+// @updateURL    http://amntrd170:3000/Global/plmTamper/raw/branch/main/
+// @downloadURL  http://amntrd170:3000/Global/plmTamper/raw/branch/main/
 // @match        https://*/3dspace/common/emxPortalDisplay.jsp?*
 // @icon         https://eu1-ds-iam.3dexperience.3ds.com/3DPassport/resources-220127130842/img/favicon/favicon-32x32.png
 // ==/UserScript==

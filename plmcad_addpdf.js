@@ -4,8 +4,8 @@
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  Allow fast add pdf, reduce error because copy name to clipboard with widlcard.
-// @updateURL    http://github.com/hdelage/tamper_hd/raw/main/plmcad_addpdf.js
-// @downloadURL  http://github.com/hdelage/tamper_hd/raw/main/plmcad_addpdf.js
+// @updateURL    http://amntrd170:3000/Global/plmTamper/raw/branch/main/plmcad_addpdf.js
+// @downloadURL  http://amntrd170:3000/Global/plmTamper/raw/branch/main/plmcad_addpdf.js
 // @author       Hugo Delage
 // @match        https://hut2019x.plm.marquez.ca:444/3dspace/components/emxComponentsCheckinDialog.jsp?*
 // @icon         https://www.svgrepo.com/show/144578/pdf.svg
