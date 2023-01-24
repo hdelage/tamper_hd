@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         DownloadStructure
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.2.1
 // @description  Add missing download button for user with error message. will download into intranet folder
 // @updateURL    http://amntrd170:3000/Global/plmTamper/raw/branch/main/downloadStructure.js
 // @downloadURL  http://amntrd170:3000/Global/plmTamper/raw/branch/main/downloadStructure.js
