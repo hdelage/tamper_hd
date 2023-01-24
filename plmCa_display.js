@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ca display only nice stuff
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.2.1
 // @description  Hide cancell and complete ca
 // @author       Hugo Delage
 // @updateURL    http://amntrd170:3000/Global/plmTamper/raw/branch/main/plmCa_display.js

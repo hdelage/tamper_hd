@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         plmcad_addpdf
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.1.1
 // @description  Allow fast add pdf, reduce error because copy name to clipboard with widlcard.
 // @updateURL    http://amntrd170:3000/Global/plmTamper/raw/branch/main/plmcad_addpdf.js
 // @downloadURL  http://amntrd170:3000/Global/plmTamper/raw/branch/main/plmcad_addpdf.js

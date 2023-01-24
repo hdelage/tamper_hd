@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         plmTasks_append
 // @namespace    http://tampermonkey.net/
-// @version      0.6
+// @version      0.6.1
 // @description  Allow fast edit of project names
 // @author       Hugo Delage
 // @updateURL    http://amntrd170:3000/Global/plmTamper/raw/branch/main/
