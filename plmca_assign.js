@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         plmca_assign
 // @namespace    http://tampermonkey.net/
-// @version      0.1.1
+// @version      0.1.2
 // @description  Allow fast edit of project names
 // @author       Hugo Delage
 // @updateURL    http://amntrd170:3000/Global/plmTamper/raw/branch/main/plmca_assign.js
@@ -27,7 +27,6 @@ const users={"mat1for":"Mathieu F.",
 "A0H95322":"Saleem S.",
 "jea1rat":"J-S. Ratelle",
 "abd1fak":"Abder F.",
-"zoz1olg":"Zozane O.",
 "fra1tre":"Francois T.",
 "mat1leg":"Mathias L.",
 "fre1pot":"Fred P.",
@@ -45,8 +44,8 @@ const users={"mat1for":"Mathieu F.",
 const roles = {
    "M&P":["mat1for","A0H95406"],
    "CAD":["hug1del","A0h95459","pie1ger"],
-   "CHARGÉ DE PROJETS":["A0H95322","jea1rat","abd1fak","zoz1olg", "jea1leg"],
-   "CHARGE DE PROJETS":["A0H95322","jea1rat","abd1fak","zoz1olg", "jea1leg"],
+   "CHARGÉ DE PROJETS":["A0H95322","jea1rat","abd1fak","jea1leg"],
+   "CHARGE DE PROJETS":["A0H95322","jea1rat","abd1fak","jea1leg"],
    "METHODE":["fra1tre","mat1leg","fre1pot","nan1fre","A0H95400"],
    "METHODES":["fra1tre","mat1leg","fre1pot","nan1fre","A0H95400"],
    "MÉTHODES":["fra1tre","mat1leg","fre1pot","nan1fre","A0H95400"],
