@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         DownloadStructure
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  Add missing download button for user with error message. will download into intranet folder
-// @updateURL    http://github.com/hdelage/tamper_hd/raw/main/downloadStructure.js
-// @downloadURL  http://github.com/hdelage/tamper_hd/raw/main/downloadStructure.js
+// @updateURL    http://amntrd170:3000/Global/plmTamper/raw/branch/main/downloadStructure.js
+// @downloadURL  http://amntrd170:3000/Global/plmTamper/raw/branch/main/downloadStructure.js
 // @author       Hugo Delage
 // @match        */3dspace/common/emxForm.jsp?*
 // @icon         https://eu1-ds-iam.3dexperience.3ds.com/3DPassport/resources-220127130842/img/favicon/favicon-32x32.png
